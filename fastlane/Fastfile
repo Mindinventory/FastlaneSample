@@ -25,7 +25,6 @@ platform :android do
         supply(
             skip_upload_images: 'true',
             skip_upload_screenshots: 'true',
-            skip_upload_apk: 'true',
             track: 'internal', # track name in which you want to deploy your build
             package_name: 'Package name of your app',
             apk_paths: ["Your generated apk file path"]
@@ -49,7 +48,6 @@ platform :android do
       supply(
           skip_upload_images: 'true',
           skip_upload_screenshots: 'true',
-          skip_upload_apk: 'true',
           track: 'internal',
           package_name: 'Package name of your app',
           aab_paths: ["Your generated aab file path"]
