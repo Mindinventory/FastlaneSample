@@ -111,6 +111,7 @@ platform :android do
     # Fetch latest build version from Firebase App Distribution and increment version by 1
         desc "Get latest build version from Firebase App Distribution"
         lane :getLatestVersionAndUpgrade do
+        puts FIREBASE_APP_ID
             latest_release = firebase_app_distribution_get_latest_release(
                 app: FIREBASE_APP_ID
             )
