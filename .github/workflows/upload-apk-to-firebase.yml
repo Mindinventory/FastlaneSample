@@ -42,7 +42,7 @@ jobs:
       # Step 5 Install the bundler & Fastlane (Create environment for ruby to avoid dependency hell and manage the dependencies versions)
       - name: Install bundler
         run: |
-          gem install bundler:2.2.27
+          sudo apt install ruby-bundler
           bundle config path vendor/bundle
           bundle install --jobs 4 --retry 3
 
