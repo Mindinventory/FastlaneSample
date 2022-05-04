@@ -54,9 +54,9 @@ jobs:
       - name: Upgrade build version
         run: bundle exec fastlane getLatestVersionAndUpgrade
 
-#      # Step 8 Run the Base64 command to decode and create the .jks file from base64 string of .jks
-#      - name: Generate .jks file
-#        run: echo ${{secrets.ANDROID_SIGNING_KEY}} | base64 -d > /home/runner/work/FastlaneSampleProject/FastlaneSampleProject/app/fastlanesample.jks
+      # Step 8 Run the Base64 command to decode and create the .jks file from base64 string of .jks
+      - name: Generate .jks file
+        run: echo ${{secrets.ANDROID_SIGNING_KEY}} | base64 -d > /home/runner/work/FastlaneSampleProject/FastlaneSampleProject/app/fastlanesample.jks
 
       # Step 9 Run the fastlane command to upload the build
       - name: Upload Apk to Firebase

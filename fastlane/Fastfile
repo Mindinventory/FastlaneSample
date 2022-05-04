@@ -2,6 +2,14 @@ default_platform(:android)
 
 platform :android do
 
+FIREBASE_CLI_TOKEN = ENV["FIREBASE_CLI_TOKEN"]
+FIREBASE_APP_ID = ENV["FIREBASE_APP_ID"]
+# SLACK_WEB_HOOK_URL = ENV["SLACK_WEB_HOOK_URL"]
+ANDROID_KEY_ALIAS = ENV["ANDROID_KEY_ALIAS"]
+ANDROID_KEY_PASSWORD = ENV["ANDROID_KEY_PASSWORD"]
+ANDROID_STORE_PASSWORD = ENV["ANDROID_STORE_PASSWORD"]
+# ANDROID_SIGNING_KEY = ENV["ANDROID_SIGNING_KEY"]
+
    #Simple Lane Format
       desc "Provide description for your lane"
       lane :laneName do
@@ -61,19 +69,19 @@ platform :android do
                     task: "assemble",
                     build_type: "Release",
                     properties: {
-                        "android.injected.signing.store.file" => "Your Keystore Path",
-                        "android.injected.signing.store.password" => "Your Keystore Password",
-                        "android.injected.signing.key.alias" => "Your Key Alias",
-                        "android.injected.signing.key.password" => "Your Key Password",
+                        "android.injected.signing.store.file" => "/home/runner/work/FastlaneSampleProject/FastlaneSampleProject/fastlanesample.jks",
+                        "android.injected.signing.store.password" => ANDROID_STORE_PASSWORD,
+                        "android.injected.signing.key.alias" => ANDROID_KEY_ALIAS,
+                        "android.injected.signing.key.password" => ANDROID_KEY_PASSWORD,
                     }
             )
             firebase_app_distribution(
-                    app: "Your Firebase App Id",
-                    firebase_cli_token: "Your Firebase CLI token",
+                    app: FIREBASE_APP_ID,
+                    firebase_cli_token: FIREBASE_CLI_TOKEN,
                     release_notes_file: "release-notes.txt",
                     android_artifact_type: "APK",
                     android_artifact_path: "app/build/outputs/apk/release/app-release.apk",
-                    groups: "Your Testers Group Name"
+                    groups: "beta-testers"
             )
          end
 
@@ -126,4 +134,16 @@ platform :android do
             f.write(s)
             f.close
         end
+
+#     # Build uploading success message
+#         desc "Build upload success"
+#         lane :sendBuildUploadingSuccessMessage do
+#         slack(
+#               username: "Android Apk",
+#               message: "Android Apk is uploaded successfully to firebase",
+#               success: true,
+#               slack_url: SLACK_WEB_HOOK_URL,
+#               icon_url: "https://github.com/milanvadhel-mi/FastlaneSampleProject/blob/main/app/src/main/res/mipmap-hdpi/ic_launcher.webp"
+#         )
+#         end
 end
