@@ -1,7 +1,5 @@
 default_platform(:android)
 
-platform :android do
-
 FIREBASE_CLI_TOKEN = ENV["FIREBASE_CLI_TOKEN"]
 FIREBASE_APP_ID = ENV["FIREBASE_APP_ID"]
 # SLACK_WEB_HOOK_URL = ENV["SLACK_WEB_HOOK_URL"]
@@ -9,6 +7,8 @@ ANDROID_KEY_ALIAS = ENV["ANDROID_KEY_ALIAS"]
 ANDROID_KEY_PASSWORD = ENV["ANDROID_KEY_PASSWORD"]
 ANDROID_STORE_PASSWORD = ENV["ANDROID_STORE_PASSWORD"]
 # ANDROID_SIGNING_KEY = ENV["ANDROID_SIGNING_KEY"]
+
+platform :android do
 
    #Simple Lane Format
       desc "Provide description for your lane"
