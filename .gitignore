@@ -16,10 +16,8 @@
 local.properties
 fastlanesample.jks
 output.txt
-
-
-
-
+private-key.json
+private-key.txt
 
 
 
