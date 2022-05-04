@@ -51,13 +51,13 @@ jobs:
       - name: Install Firebase app distribution plugin
         run: bundle exec fastlane add_plugin firebase_app_distribution
 
-      # Step 7 Run the fastlane command to update versionCode and versionName based on latest build uploaded on firebase
-      - name: Upgrade build version
-        run: bundle exec fastlane getLatestVersionAndUpgrade
-
-      # Step 8 Run the Base64 command to decode our PRIVATE_SERVICE_ACCOUNT_KEY and create the private-key.json file of our service account
+      # Step 7 Run the Base64 command to decode our PRIVATE_SERVICE_ACCOUNT_KEY and create the private-key.json file of our service account
       - name: Generate private-key.json file
         run: echo ${{secrets.PRIVATE_SERVICE_ACCOUNT_KEY}} | base64 -d > /home/runner/work/FastlaneSampleProject/FastlaneSampleProject/private-key.json
+
+      # Step 8 Run the fastlane command to update versionCode and versionName based on latest build uploaded on firebase
+      - name: Upgrade build version
+        run: bundle exec fastlane getLatestVersionAndUpgrade
 
       # Step 9 Run the Base64 command to decode and create the .jks file from base64 string of .jks
       - name: Generate .jks file
