@@ -1,5 +1,7 @@
 default_platform(:android)
 
+platform :android do
+
 FIREBASE_CLI_TOKEN = ENV["FIREBASE_CLI_TOKEN"]
 FIREBASE_APP_ID = ENV["FIREBASE_APP_ID"]
 # SLACK_WEB_HOOK_URL = ENV["SLACK_WEB_HOOK_URL"]
@@ -7,8 +9,6 @@ ANDROID_KEY_ALIAS = ENV["ANDROID_KEY_ALIAS"]
 ANDROID_KEY_PASSWORD = ENV["ANDROID_KEY_PASSWORD"]
 ANDROID_STORE_PASSWORD = ENV["ANDROID_STORE_PASSWORD"]
 # ANDROID_SIGNING_KEY = ENV["ANDROID_SIGNING_KEY"]
-
-platform :android do
 
    #Simple Lane Format
       desc "Provide description for your lane"
@@ -111,29 +111,28 @@ platform :android do
     # Fetch latest build version from Firebase App Distribution and increment version by 1
         desc "Get latest build version from Firebase App Distribution"
         lane :getLatestVersionAndUpgrade do
-        puts FIREBASE_APP_ID
-#             latest_release = firebase_app_distribution_get_latest_release(
-#                 app: FIREBASE_APP_ID
-#             )
-#             puts latest_release
-#             versionName = latest_release[:displayVersion]
-#             versionNumber = latest_release[:buildVersion]
-#             final_version_number = versionNumber.to_i + 1
-#             versionNameArray = versionName.split(".")
-#             major = versionNameArray[0]
-#             minor = versionNameArray[1]
-#             point = versionNameArray[2]
-#             final_version_name_point = point.to_i + 1
-#             final_version_name = major.to_s + "." + minor.to_s + "." + final_version_name_point.to_s
-#             path = "../app/build.gradle"
-#             versionCode = /versionCode\s+(\d+)/
-#             versionName = /versionName\s+(\S+)/
-#             s = File.read(path)
-#             s[versionCode,1] = final_version_number.to_s
-#             s[versionName,1] = "\"#{final_version_name}\""
-#             f= File.new(path,'w')
-#             f.write(s)
-#             f.close
+            latest_release = firebase_app_distribution_get_latest_release(
+                app: FIREBASE_APP_ID
+            )
+            puts "Latest Release -> #{latest_release}"
+            versionName = latest_release[:displayVersion]
+            versionNumber = latest_release[:buildVersion]
+            final_version_number = versionNumber.to_i + 1
+            versionNameArray = versionName.split(".")
+            major = versionNameArray[0]
+            minor = versionNameArray[1]
+            point = versionNameArray[2]
+            final_version_name_point = point.to_i + 1
+            final_version_name = major.to_s + "." + minor.to_s + "." + final_version_name_point.to_s
+            path = "../app/build.gradle"
+            versionCode = /versionCode\s+(\d+)/
+            versionName = /versionName\s+(\S+)/
+            s = File.read(path)
+            s[versionCode,1] = final_version_number.to_s
+            s[versionName,1] = "\"#{final_version_name}\""
+            f= File.new(path,'w')
+            f.write(s)
+            f.close
         end
 
 #     # Build uploading success message
