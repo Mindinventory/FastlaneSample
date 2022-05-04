@@ -42,13 +42,13 @@ jobs:
       # Step 5 Install the bundler & Fastlane (Create environment for ruby to avoid dependency hell and manage the dependencies versions)
       - name: Install bundler
         run: |
-          sudo apt install ruby-bundler
+          gem install bundler:2.2.27
           bundle config path vendor/bundle
           bundle install --jobs 4 --retry 3
 
       # Step 6 Install the Firebase app distribution plugin with fastlane
       - name: Install Firebase app distribution plugin
-        run: fastlane add_plugin firebase_app_distribution
+        run: bundle exec fastlane add_plugin firebase_app_distribution
 
       # Step 7 Run the fastlane command to update versionCode and versionName based on latest build uploaded on firebase
       - name: Upgrade build version
