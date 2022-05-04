@@ -18,7 +18,8 @@ fastlanesample.jks
 output.txt
 private-key.json
 private-key.txt
-
+.env
+private-decoded-key.txt
 
 
 
