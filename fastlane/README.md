@@ -55,6 +55,14 @@ Upload release apk on firebase app distribution
 
 Upload release bundle on firebase app distribution
 
+### android getLatestVersionAndUpgrade
+
+```sh
+[bundle exec] fastlane android getLatestVersionAndUpgrade
+```
+
+Get latest build version from Firebase App Distribution
+
 ----
 
 This README.md is auto-generated and will be re-generated every time [_fastlane_](https://fastlane.tools) is run.

@@ -1,0 +1,84 @@
+# Github action to build and upload the apk on firebase app distribution when any feature branch merge in fastlane-with-github-action branch
+
+name: Create and Upload Apk on Firebase App Distribution.
+
+on:
+  push:
+    branches: [ fastlane-with-github-action ]
+
+jobs:
+  # Job 1 ->
+  CI-Prod:
+    name: Apk uploading on Firebase App Distribution
+    runs-on: ubuntu-latest
+
+    # Step 1 Store all required keys in environment variable
+    env:
+      FIREBASE_CLI_TOKEN: ${{secrets.FIREBASE_CLI_TOKEN}}
+      FIREBASE_APP_ID: ${{secrets.FIREBASE_APP_ID}}
+      SLACK_WEB_HOOK_URL: ${{secrets.SLACK_WEB_HOOK_URL}}
+      ANDROID_KEY_ALIAS: ${{secrets.ANDROID_KEY_ALIAS}}
+      ANDROID_KEY_PASSWORD: ${{secrets.ANDROID_KEY_PASSWORD}}
+      ANDROID_STORE_PASSWORD: ${{secrets.ANDROID_STORE_PASSWORD}}
+      ANDROID_SIGNING_KEY: ${{secrets.ANDROID_SIGNING_KEY}}
+      PRIVATE_SERVICE_ACCOUNT_KEY: ${{secrets.PRIVATE_SERVICE_ACCOUNT_KEY}}
+
+    steps:
+      # Step 2 Checkout Repository
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      # Step 3 Setup JDK
+      - name: Setup JDK
+        uses: actions/setup-java@v1
+        with:
+          java-version: 11
+
+      # Step 4 Setup Ruby
+      - name: Setup Ruby
+        uses: actions/setup-ruby@v1
+        with:
+          ruby-version: '2.6'
+
+      # Step 5 Install the bundler & Fastlane (Create environment for ruby to avoid dependency hell and manage the dependencies versions)
+      - name: Install bundler
+        run: |
+          gem install bundler:2.2.27
+          bundle config path vendor/bundle
+          bundle install --jobs 4 --retry 3
+
+      # Step 6 Install the Firebase app distribution plugin with fastlane
+      - name: Install Firebase app distribution plugin
+        run: bundle exec fastlane add_plugin firebase_app_distribution
+
+      # Step 7 Run the Base64 command to decode our PRIVATE_SERVICE_ACCOUNT_KEY and create the private-key.json file of our service account
+      - name: Generate private-key.json file
+        run: echo ${{secrets.PRIVATE_SERVICE_ACCOUNT_KEY}} | base64 -d > /home/runner/work/FastlaneSampleProject/FastlaneSampleProject/private-decoded-key.txt
+
+      # Step 8 Run the fastlane command to update versionCode and versionName based on latest build uploaded on firebase
+      - name: Upgrade build version
+        run: bundle exec fastlane getLatestVersionAndUpgrade
+
+      # Step 9 Run the Base64 command to decode and create the .jks file from base64 string of .jks
+      - name: Generate .jks file
+        run: echo ${{secrets.ANDROID_SIGNING_KEY}} | base64 -d > /home/runner/work/FastlaneSampleProject/FastlaneSampleProject/fastlanesample.jks
+
+      # Step 10 Run the fastlane command to upload the build
+      - name: Upload Apk to Firebase
+        run: bundle exec fastlane uploadApkToFirebase
+
+#      # Step 10 Run the fastlane command to notify job status success
+#      - name: Slack notification for success
+#        if: ${{job.status == 'success'}}
+#        run: bundle exec fastlane sendBuildUploadingSuccessMessage
+#
+#      # Step 11 Run the fastlane command to notify job status failed
+#      - name: Slack notification for failed
+#        if: ${{job.status == 'failure'}}
+#        run: bundle exec fastlane sendBuildUploadingFailMessage
+
+
+
+
+
+
