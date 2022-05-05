@@ -2,9 +2,12 @@
 
 name: Create and Upload Apk on Firebase App Distribution.
 
+#on:
+#  push:
+#    branches: [ fastlane-with-github-action ]
+
 on:
-  push:
-    branches: [ fastlane-with-github-action ]
+  workflow_dispatch:
 
 jobs:
   # Job 1 ->
