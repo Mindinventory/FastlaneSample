@@ -113,7 +113,7 @@ ANDROID_STORE_PASSWORD = ENV["ANDROID_STORE_PASSWORD"]
         lane :getLatestVersionAndUpgrade do
             latest_release = firebase_app_distribution_get_latest_release(
                 app: FIREBASE_APP_ID,
-                service_credentials_file: "/home/runner/work/FastlaneSampleProject/FastlaneSampleProject/private-decoded-key.txt"
+                service_credentials_file: "/home/runner/work/FastlaneSampleProject/FastlaneSampleProject/private-decoded-key.json"
             )
             versionName = latest_release[:displayVersion]
             versionNumber = latest_release[:buildVersion]
