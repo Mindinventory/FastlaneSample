@@ -135,15 +135,27 @@ ANDROID_STORE_PASSWORD = ENV["ANDROID_STORE_PASSWORD"]
             f.close
         end
 
-#     # Build uploading success message
-#         desc "Build upload success"
-#         lane :sendBuildUploadingSuccessMessage do
-#         slack(
-#               username: "Android Apk",
-#               message: "Android Apk is uploaded successfully to firebase",
-#               success: true,
-#               slack_url: SLACK_WEB_HOOK_URL,
-#               icon_url: "https://github.com/milanvadhel-mi/FastlaneSampleProject/blob/main/app/src/main/res/mipmap-hdpi/ic_launcher.webp"
-#         )
-#         end
+    # Build uploading success message
+        desc "Build upload success"
+        lane :sendBuildUploadingSuccessMessage do
+        slack(
+              username: "Android Apk",
+              message: "Android Apk is uploaded successfully to firebase",
+              success: true,
+              slack_url: SLACK_WEB_HOOK_URL,
+              icon_url: "https://github.com/milanvadhel-mi/FastlaneSampleProject/blob/main/app/src/main/res/mipmap-hdpi/ic_launcher.webp"
+        )
+        end
+
+    # Build uploading fail message
+        desc "Build upload failed"
+        lane :sendBuildUploadingFailMessage do
+        slack(
+              username: "Android Apk",
+              message: "Android Apk is uploading failed to firebase",
+              success: false,
+              slack_url: SLACK_WEB_HOOK_URL,
+              icon_url: "https://github.com/milanvadhel-mi/FastlaneSampleProject/blob/main/app/src/main/res/mipmap-hdpi/ic_launcher.webp"
+        )
+        end
 end
