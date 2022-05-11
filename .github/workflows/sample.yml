@@ -1,0 +1,24 @@
+name: Workflow name
+
+on:
+  EventName:
+    branches: [ Branch Name ]
+
+jobs:
+  JOB-Name:
+    name: Name
+    runs-on: Runner system name
+
+    env:
+      KEY: ${{secrets.KEY}}
+
+    steps:
+      - name: Checkout repository
+
+
+
+
+
+
+
+
