@@ -3,8 +3,8 @@
 This is the sample project to refer how to integrate fastlane into your project and to automate beta deployments and releases for your android apps.
 
 Advantages : 
-(1) Reduce repetitive work and cost of time.
-(2) One-time configuration 
+- Reduce repetitive work and cost of time.
+- One-time configuration 
 
 ## Blog post
 https://medium.com/mindful-engineering/fastlane-automate-beta-deployments-and-releases-for-your-android-apps-f0db04d8966c
