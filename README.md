@@ -1,4 +1,4 @@
-# Fastlane: Automate beta deployments and releases for your android apps
+# Fastlane: Automate beta deployments and releases for your android apps ![](https://img.shields.io/github/languages/top/Mindinventory/FastlaneSample) ![](https://img.shields.io/github/license/mindinventory/FastlaneSample)
 
 As an android developer generating the build, uploading it to the firebase app distribution and notifying your beta testers whenever a new build is available for testing, or generating the screenshots for your app and releasing it to the Play store every time manually is a tedious task. Well doing the same thing, again and again, is ultimately time-consuming.
 
